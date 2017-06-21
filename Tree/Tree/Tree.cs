@@ -25,91 +25,66 @@ namespace Tree
 
         public void Remove(Node<T> node) //doesn't treat node == root case
         {
-            Queue<Node<T>> q = new Queue<Node<T>>();
-            q.Enqueue(root);
-
-            while (q.Count() != 0)
-            {
-                var currNode = q.Dequeue();
-
-                if (currNode.Children.Contains(node))
-                {
-                    currNode.Children.Remove(node);
-                }
-                else
-                {
-                    foreach (Node<T> n in currNode.Children)
-                    {
-                        q.Enqueue(n);
-                    }
-                }
-            }
+            Traverse(null, currNode => currNode.Children.Contains(node), currNode => currNode.Children.Remove(node));
         }
 
         public Node<T> FindNode(T data)
         {
+            Node<T> foundNode = null;
+
+            Traverse(null, node => node.Data.Equals(data), node => foundNode = node);
+
+            return foundNode;
+        }
+
+        public IEnumerable<Node<T>> TraverseBreadthFirst()
+        {
+            List<Node<T>> traversal = new List<Node<T>>();
+
+            Traverse(node => traversal.Add(node));          
+
+            return traversal;
+        }
+
+        private void PrintNode(Node<T> node)
+        {
+            Console.WriteLine(node.Data);
+        }
+
+        public void PrintAll()
+        {
+            Traverse(PrintNode);
+        }
+
+        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition = null, Action<Node<T>> stopAction = null)
+        {
             Queue<Node<T>> q = new Queue<Node<T>>();
+
+            List<Node<T>> traversal = new List<Node<T>>();
+
             q.Enqueue(root);
 
             while (q.Count() != 0)
             {
                 var currNode = q.Dequeue();
 
-                if (currNode.Data.Equals(data))
+                if (action != null)
                 {
-                    return currNode;
+                    action(currNode);
                 }
-                else
+
+                if (stopCondition == null || !stopCondition(currNode))
                 {
                     foreach (Node<T> node in currNode.Children)
                     {
                         q.Enqueue(node);
                     }
                 }
-            }
-
-            return null;
-        }
-        public IEnumerable<Node<T>> TraverseBreadthFirst()
-        {
-            Queue<Node<T>> q = new Queue<Node<T>>();
-            List<Node<T>> traversal = new List<Node<T>>();
-            q.Enqueue(root);
-
-            while (q.Count() != 0)
-            {
-                var currNode = q.Dequeue();
-
-                traversal.Add(currNode);
-
-                foreach (Node<T> n in currNode.Children)
+                else
                 {
-                    q.Enqueue(n);
-                }
-            }
-
-            return traversal;
-        }
-
-        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition)
-        {
-            Queue<Node<T>> q = new Queue<Node<T>>();
-
-            List<Node<T>> traversal = new List<Node<T>>();
-
-            q.Enqueue(root);
-
-            while (q.Count() != 0)
-            {
-                var currNode = q.Dequeue();
-
-                action(currNode);
-
-                if (!stopCondition(currNode))
-                {
-                    foreach (Node<T> node in currNode.Children)
+                    if(stopAction != null)
                     {
-                        q.Enqueue(node);
+                        stopAction(currNode);
                     }
                 }
             }

@@ -19,12 +19,17 @@ namespace Tree
             t.Add(22, t.root);
             t.Add(17, n);
             t.Remove(n);
+            var node = t.FindNode(15);
+            var node2 = t.FindNode(30);
 
-            var traversal = t.TraverseBreadthFirst();
-            foreach(var item in traversal)
-            {
-                Console.WriteLine("({0}, {1})", item.Id, item.Data);
-            }
+            //var traversal = t.TraverseBreadthFirst();
+            //foreach(var item in traversal)
+            //{
+            //    Console.WriteLine("({0}, {1})", item.Id, item.Data);
+            //}
+
+            t.PrintAll();
+
             Console.Read();
         }
     }
