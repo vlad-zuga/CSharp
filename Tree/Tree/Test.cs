@@ -8,24 +8,22 @@ namespace Tree
 {
     public class Test
     {
+        
         public static void Main()
         {
             Tree<int> t = new Tree<int>();
 
-            Node<int> n = new Node<int>(1, 20);
-            t.Add(n, t.root);
-            Node<int> tmp = t.FindNode(20);
-            n = new Node<int>(2, 30);
-            t.Add(n, tmp);
-            Node<int> n2 = n;
-            n.Data = 15;
-            n.Id = 3;
-            t.Add(n, tmp);
-            t.Remove(n2);
-            
-            foreach(Node<int> node in tmp.Children)
+            Node<int> n = t.Add(20, t.root);
+            t.Add(30, n);
+            n = t.Add(15, n);
+            t.Add(22, t.root);
+            t.Add(17, n);
+            t.Remove(n);
+
+            var traversal = t.TraverseBreadthFirst();
+            foreach(var item in traversal)
             {
-                Console.WriteLine("{0}", node.Data);
+                Console.WriteLine("({0}, {1})", item.Id, item.Data);
             }
             Console.Read();
         }

@@ -8,8 +8,6 @@ namespace Tree
 {
     public class Node<T>
     {
-        public static int ID = 0;
-
         public Node<T> parent;
         public int Id;
         public List<Node<T>> Children;
