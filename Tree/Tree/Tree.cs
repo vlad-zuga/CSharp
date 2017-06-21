@@ -23,11 +23,10 @@ namespace Tree
         {
             Queue<Node<T>> q = new Queue<Node<T>>();
             q.Enqueue(root);
-            Node<T> currNode = q.Peek();
-            q.Dequeue();
 
             while (q.Count() != 0)
             {
+                var currNode = q.Dequeue();
                 if (currNode.Children.Contains(node))
                 {
                     currNode.Children.Remove(node);

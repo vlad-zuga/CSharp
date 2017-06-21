@@ -4,3 +4,9 @@ c:\Projects\Tree\Tree\bin\Debug\Tree.pdb
 c:\Projects\Tree\Tree\obj\Debug\Tree.csprojResolveAssemblyReference.cache
 c:\Projects\Tree\Tree\obj\Debug\Tree.exe
 c:\Projects\Tree\Tree\obj\Debug\Tree.pdb
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\bin\Debug\Tree.exe.config
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\bin\Debug\Tree.exe
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\bin\Debug\Tree.pdb
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\obj\Debug\Tree.csprojResolveAssemblyReference.cache
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\obj\Debug\Tree.exe
+C:\Users\vlad.zuga\Documents\GitHub\CSharp\Tree\Tree\obj\Debug\Tree.pdb
