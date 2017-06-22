@@ -64,7 +64,23 @@ namespace Tree
         public Node<T> FindNode(IEnumerable<T> dataChain)
         {
             int idx = 0;
+            int searchedSize = dataChain.Count();
+            List<T> data = dataChain.ToList();
+            Node<T> result = null;
             //TODO
+            Traverse(node =>
+            {
+                if (idx < searchedSize && node.Data.Equals(data[idx]))
+                {
+                    result = node;
+                    idx++;
+                }
+            }, node => idx >= searchedSize);
+
+            if (result != null && idx == searchedSize && result.Data.Equals(data[searchedSize - 1]))
+            {
+                return result;
+            }
 
             return null;
         }

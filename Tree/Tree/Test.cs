@@ -53,6 +53,21 @@ namespace Tree
             Console.WriteLine("");
         }
 
+        static void TestPrint(Node<int> n)
+        {
+            if (n != null)
+            {
+                Console.WriteLine("Node:");
+                Console.WriteLine("({0}, {1})", n.Id, n.Data);
+                Console.WriteLine("");
+            }
+            else
+            {
+                Console.WriteLine("Null node");
+                Console.WriteLine("");
+            }
+        }
+
         static void TestSearchNodes(Tree<int> t, int data)
         {
             var nodes = t.SearchNodes(20);
@@ -68,6 +83,11 @@ namespace Tree
             t.Add(t, parent);
         }
 
+        static Node<int> TestFindNode(Tree<int> t, IEnumerable<int> pdataChain)
+        {
+            return t.FindNode(pdataChain);
+        }
+
         public static void Main()
         {
             Tree<int> t1 = TestAdd(true);
@@ -81,6 +101,16 @@ namespace Tree
             n = TestFind(t1, 20);
             TestAddTree(t2, n);
             TestPrint(t1);
+
+            var l1 = new List<int> { 0, 20, 0, 20, 15, 20 };
+            var l2 = new List<int> { 0, 20, 30 };
+            var l3 = new List<int> { 1, 3, 5 };
+            n = TestFindNode(t1, l1);
+            TestPrint(n);
+            n = TestFindNode(t1, l2);
+            TestPrint(n);
+            n = TestFindNode(t1, l3);
+            TestPrint(n);
 
             Console.Read();
         }
