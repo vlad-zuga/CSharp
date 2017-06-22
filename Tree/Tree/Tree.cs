@@ -23,7 +23,7 @@ namespace Tree
             return newNode;
         }
 
-        public void Remove(Node<T> node) //doesn't treat node == root case
+        public void Remove(Node<T> node)
         {
             Traverse(null, currNode => currNode.Children.Contains(node), currNode => currNode.Children.Remove(node));
         }
@@ -35,6 +35,15 @@ namespace Tree
             Traverse(null, node => node.Data.Equals(data), node => foundNode = node);
 
             return foundNode;
+        }
+
+        public IEnumerable<Node<T>> SearchNodes(T data)
+        {
+            List<Node<T>> list = new List<Node<T>>();
+
+            Traverse(node => list.Add(node), null, null, node => node.Data.Equals(data));
+
+            return list;
         }
 
         public IEnumerable<Node<T>> TraverseBreadthFirst()
@@ -56,7 +65,7 @@ namespace Tree
             Traverse(PrintNode);
         }
 
-        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition = null, Action<Node<T>> stopAction = null)
+        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition = null, Action<Node<T>> stopAction = null, Func<Node<T>, bool> actionCondition = null)
         {
             Queue<Node<T>> q = new Queue<Node<T>>();
 
@@ -70,7 +79,10 @@ namespace Tree
 
                 if (action != null)
                 {
-                    action(currNode);
+                    if (actionCondition == null || actionCondition(currNode))
+                    {
+                        action(currNode);
+                    }
                 }
 
                 if (stopCondition == null || !stopCondition(currNode))

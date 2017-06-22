@@ -14,21 +14,25 @@ namespace Tree
             Tree<int> t = new Tree<int>();
 
             Node<int> n = t.Add(20, t.root);
-            t.Add(30, n);
+            t.Add(20, n);
             n = t.Add(15, n);
             t.Add(22, t.root);
-            t.Add(17, n);
+            t.Add(20, n);
             t.Remove(n);
             var node = t.FindNode(15);
             var node2 = t.FindNode(30);
 
-            //var traversal = t.TraverseBreadthFirst();
-            //foreach(var item in traversal)
-            //{
-            //    Console.WriteLine("({0}, {1})", item.Id, item.Data);
-            //}
+            var traversal = t.TraverseBreadthFirst();
+            foreach (var item in traversal)
+            {
+                Console.WriteLine("({0}, {1})", item.Id, item.Data);
+            }
 
-            t.PrintAll();
+            var nodes = t.SearchNodes(20);
+            foreach(var item in nodes)
+            {
+                Console.WriteLine("({0}, {1})", item.Id, item.Data);
+            }
 
             Console.Read();
         }
