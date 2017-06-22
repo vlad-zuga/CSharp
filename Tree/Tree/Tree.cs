@@ -41,7 +41,13 @@ namespace Tree
         {
             List<Node<T>> list = new List<Node<T>>();
 
-            Traverse(node => list.Add(node), null, null, node => node.Data.Equals(data));
+            Traverse(node =>
+            {
+                if (node.Data.Equals(data))
+                {
+                    list.Add(node);
+                }
+            }, null, null);
 
             return list;
         }
@@ -50,9 +56,23 @@ namespace Tree
         {
             List<Node<T>> traversal = new List<Node<T>>();
 
-            Traverse(node => traversal.Add(node));          
+            Traverse(node => traversal.Add(node));
 
             return traversal;
+        }
+
+        public Node<T> FindNode(IEnumerable<T> dataChain)
+        {
+            int idx = 0;
+            //TODO
+
+            return null;
+        }
+
+        public void Add(Tree<T> tree, Node<T> parent)
+        {
+            parent.Children.Add(tree.root);
+            Traverse(node => node.Id = _id++, null, null, tree.root);
         }
 
         private void PrintNode(Node<T> node)
@@ -65,13 +85,17 @@ namespace Tree
             Traverse(PrintNode);
         }
 
-        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition = null, Action<Node<T>> stopAction = null, Func<Node<T>, bool> actionCondition = null)
+        private IEnumerable<Node<T>> Traverse(Action<Node<T>> action, Func<Node<T>, bool> stopCondition = null, Action<Node<T>> stopAction = null, Node<T> startNode = null)
         {
             Queue<Node<T>> q = new Queue<Node<T>>();
 
             List<Node<T>> traversal = new List<Node<T>>();
 
-            q.Enqueue(root);
+            if (startNode == null)
+            {
+                startNode = root;
+            }
+            q.Enqueue(startNode);
 
             while (q.Count() != 0)
             {
@@ -79,10 +103,7 @@ namespace Tree
 
                 if (action != null)
                 {
-                    if (actionCondition == null || actionCondition(currNode))
-                    {
-                        action(currNode);
-                    }
+                    action(currNode);
                 }
 
                 if (stopCondition == null || !stopCondition(currNode))
@@ -94,7 +115,7 @@ namespace Tree
                 }
                 else
                 {
-                    if(stopAction != null)
+                    if (stopAction != null)
                     {
                         stopAction(currNode);
                     }
